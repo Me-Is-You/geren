@@ -1,0 +1,1 @@
+package com.siiiweb.comment.repository;import com.siiiweb.comment.entity.Comment;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface CommentRepository extends JpaRepository<Comment,Long>{List<Comment> findByStatus(String status);}

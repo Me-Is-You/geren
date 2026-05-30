@@ -1,0 +1,94 @@
+/* Call to Action Button */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 4.4rem;
+  padding: 1.2rem 2rem;
+  border-radius: 999px;
+  overflow: hidden;
+  font-weight: 800;
+  line-height: 1;
+  z-index: 1;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Hero Style */
+.cta-btn--hero {
+  color: #041018;
+  -webkit-text-fill-color: #041018;
+  border: 1px solid rgba($primary-color, 0.8);
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  box-shadow: 0 1.2rem 3rem rgba($primary-color, 0.18),
+    0 0 2.5rem rgba($secondary-color, 0.1);
+
+  &::after {
+    background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
+  }
+
+  &:hover {
+    color: #041018;
+    -webkit-text-fill-color: #041018;
+    box-shadow: 0 1.6rem 4rem rgba($secondary-color, 0.22),
+      0 0 3.5rem rgba($primary-color, 0.16);
+    text-decoration: none;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+.cta-btn--ghost {
+  color: $white-color;
+  border: 1px solid rgba($primary-color, 0.28);
+  background: rgba($white-color, 0.03);
+  backdrop-filter: blur(12px);
+
+  &:hover {
+    color: $secondary-color;
+    border-color: rgba($secondary-color, 0.65);
+    box-shadow: 0 0 2.5rem rgba($secondary-color, 0.12);
+  }
+}
+
+/* Resume Style */
+.cta-btn--resume {
+  color: #041018;
+  border: 1px solid rgba($secondary-color, 0.8);
+  background: linear-gradient(135deg, $secondary-color 0%, $primary-color 100%);
+
+  &::after {
+    background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  }
+
+  &:hover {
+    color: #041018;
+    text-decoration: none;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+/* Arrow Button */
+.up i {
+  color: $white-color;
+}

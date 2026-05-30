@@ -1,0 +1,1 @@
+package com.siiiweb.project.entity;import javax.persistence.*;@Entity public class ProjectItem{@Id @GeneratedValue(strategy=GenerationType.IDENTITY) public Long id; public String name; @Column(length=500) public String description; public String stack; public String link; public String sourceUrl;}

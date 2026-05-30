@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="sr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#05070d" />
+    <link rel="shortcut icon" type="image/png" href="assets/favicon.png" />
+
+    <title>杨怡涵 | 全栈个人网站 · AI + DevOps</title>
+    <meta
+      name="keywords"
+      content="杨怡涵, 个人网站, 技术博客, 项目作品集, Linux, Docker, Kubernetes, Spring Cloud, Vue3, Redis, RabbitMQ, Nginx, AI"
+    />
+    <meta
+      name="description"
+      content="杨怡涵的全栈个人网站：集个人品牌展示、技术文章分享、项目作品集、留言互动与微服务架构实践于一体。"
+    />
+
+    <link rel="stylesheet" href="styles.scss" />
+    <script
+      defer
+      src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <div id="top"></div>
+
+    <nav class="site-nav" aria-label="主导航">
+      <a class="site-nav__brand" href="#top">YYH<span>Cloud</span></a>
+      <div class="site-nav__links">
+        <a href="#articles">文章</a>
+        <a href="#projects">项目</a>
+        <a href="#architecture">架构</a>
+        <a href="#message">留言</a>
+        <a href="#admin">后台</a>
+        <button type="button" class="nav-resume-link" data-protected-resume>站主简历</button>
+      </div>
+      <div class="theme-switcher" aria-label="主题切换">
+        <button type="button" data-theme-option="dark" title="暗夜黑">🌙</button>
+        <button type="button" data-theme-option="blue" title="科技蓝">☀️</button>
+        <button type="button" data-theme-option="green" title="清新绿">🌿</button>
+      </div>
+    </nav>
+
+    <!-- **** Hero Section **** -->
+    <section id="hero" class="jumbotron">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="orb orb--blue"></span>
+        <span class="orb orb--green"></span>
+        <span class="grid-lines"></span>
+        <span class="scan-line"></span>
+      </div>
+
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <p class="eyebrow load-hidden">Full-stack Portfolio · Tech Blog · Microservice Practice</p>
+          <h1 class="hero-title load-hidden">
+            你好，我是 <span class="text-color-main">杨怡涵</span>
+            <br />
+            打造一个可展示、可交互、可扩展的全栈个人网站。
+          </h1>
+          <p class="hero-subtitle load-hidden">
+            网站融合个人简历、技术文章、项目作品、留言互动与后台管理设计，并以 Spring Cloud、Redis、RabbitMQ、Docker、K8s、自动化测试等技术作为架构实践目标。
+          </p>
+          <div class="hero-badges load-hidden" aria-label="能力关键词">
+            <span>Vue3 主题切换</span>
+            <span>Spring Cloud 微服务</span>
+            <span>Docker + K8s</span>
+            <span>Redis / RabbitMQ</span>
+          </div>
+          <p class="hero-cta load-hidden">
+            <a rel="noreferrer" class="cta-btn cta-btn--hero" href="#articles">
+              阅读技术文章
+            </a>
+            <button type="button" class="cta-btn cta-btn--ghost" data-protected-resume>
+              站主简历
+            </button>
+          </p>
+        </div>
+
+        <div class="hero-panel load-hidden js-tilt" data-tilt data-tilt-max="5">
+          <div class="panel-header">
+            <span></span><span></span><span></span>
+            <strong>Theme Intelligence</strong>
+          </div>
+          <div class="ai-core">
+            <div class="ai-core__ring"></div>
+            <div class="ai-core__pulse">YYH</div>
+          </div>
+          <div class="terminal-card">
+            <p><span>></span> Detect system time & prefers-color-scheme...</p>
+            <p><span>></span> Apply CSS variables in 200ms...</p>
+            <p><span>></span> Store preference with localStorage ✓</p>
+          </div>
+          <div class="signal-list">
+            <div><strong>3</strong><span>动态主题</span></div>
+            <div><strong>JWT</strong><span>后台认证</span></div>
+            <div><strong>K8s</strong><span>容器部署</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Hero Section -->
+
+    <!-- **** Articles Section **** -->
+    <section id="articles" class="content-section">
+      <div class="container">
+        <p class="eyebrow load-hidden">Technical Writing</p>
+        <h2 class="section-title load-hidden">技术文章</h2>
+        <p class="section-lead load-hidden">
+          支持分类、标签筛选与 Markdown 文章详情。当前为前端展示模板，后续可接入文章微服务接口。
+        </p>
+
+        <div class="article-toolbar load-hidden">
+          <div class="filter-bar" aria-label="文章筛选">
+            <button type="button" class="is-active" data-filter="all">全部</button>
+            <button type="button" data-filter="devops">DevOps</button>
+            <button type="button" data-filter="frontend">前端</button>
+            <button type="button" data-filter="microservice">微服务</button>
+          </div>
+          <label class="search-box" aria-label="搜索文章">
+            <span>⌕</span>
+            <input id="articleSearch" type="search" placeholder="搜索文章标题 / 内容 / 标签" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="article-grid" id="articleGrid">
+          <article class="article-card load-hidden" data-category="devops">
+            <div class="article-card__meta"><span>DevOps</span><time>2026-05-30</time></div>
+            <h3>从本地电脑到 Linux 服务器：个人服务部署实践</h3>
+            <p>记录环境配置、Cloudflare Tunnel、Nginx 反向代理、Docker Compose 编排与半自动化更新流程。</p>
+            <div class="article-tags"><span>Linux</span><span>Nginx</span><span>Docker</span></div>
+            <button type="button" class="read-more" data-title="从本地电脑到 Linux 服务器：个人服务部署实践">阅读全文 →</button>
+          </article>
+
+          <article class="article-card load-hidden" data-category="frontend">
+            <div class="article-card__meta"><span>Frontend</span><time>2026-05-20</time></div>
+            <h3>Vue3 + ECharts 实现心理健康数据可视化</h3>
+            <p>围绕雷达图、趋势折线图、仪表盘等交互图表，梳理组件拆分、数据映射和接口联调方式。</p>
+            <div class="article-tags"><span>Vue3</span><span>ECharts</span><span>Postman</span></div>
+            <button type="button" class="read-more" data-title="Vue3 + ECharts 实现心理健康数据可视化">阅读全文 →</button>
+          </article>
+
+          <article class="article-card load-hidden" data-category="microservice">
+            <div class="article-card__meta"><span>Microservice</span><time>2026-05-10</time></div>
+            <h3>Spring Cloud 个人网站微服务拆分设计</h3>
+            <p>从用户、文章、项目、评论、统计等模块出发，设计 Nacos 注册、Gateway 网关、Redis 缓存与 RabbitMQ 异步链路。</p>
+            <div class="article-tags"><span>Spring Cloud</span><span>Redis</span><span>RabbitMQ</span></div>
+            <button type="button" class="read-more" data-title="Spring Cloud 个人网站微服务拆分设计">阅读全文 →</button>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- /END Articles Section -->
+
+    <!-- **** Projects Section **** -->
+    <section id="projects">
+      <div class="container">
+        <div class="project-wrapper">
+          <p class="eyebrow load-hidden">Portfolio</p>
+          <h2 class="section-title dark-blue-text load-hidden">项目作品</h2>
+
+          <div class="row project-card">
+            <div class="col-lg-5 col-sm-12">
+              <div class="project-wrapper__text load-hidden">
+                <span class="project-tag">AI Competition · Frontend Lead</span>
+                <h3 class="project-wrapper__text-title">大学生心理健康智能评估平台</h3>
+                <p class="mb-4">
+                  基于 Python + PyTorch + Flask 的智能评估平台，覆盖学生、咨询师、管理三端。我负责 Vue.js + ECharts 前端可视化，实现情绪雷达、趋势折线、仪表盘等 7+ 种图表交互，并完成 20+ 接口联调。
+                </p>
+                <div class="tech-list">
+                  <span>Vue.js</span><span>ECharts</span><span>Flask</span><span>PyTorch</span><span>Postman</span>
+                </div>
+                <button type="button" class="cta-btn cta-btn--hero" data-protected-resume>查看简历详情</button>
+                <a rel="noreferrer" class="cta-btn text-color-main" href="#message">交流项目</a>
+              </div>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+              <div class="project-wrapper__image load-hidden">
+                <div data-tilt data-tilt-max="4" class="thumbnail rounded js-tilt smart-preview smart-preview--data">
+                  <div class="chart-bars"><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="metric-card"><strong>7+</strong><small>Interactive Charts</small></div>
+                  <div class="preview-copy"><strong>Mental Health AI Platform</strong><small>Emotion · Assessment · Report</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row project-card project-card--reverse">
+            <div class="col-lg-5 col-sm-12">
+              <div class="project-wrapper__text load-hidden">
+                <span class="project-tag">DevOps · Independent Deployment</span>
+                <h3 class="project-wrapper__text-title">个人服务器与内网穿透部署</h3>
+                <p class="mb-4">
+                  将个人电脑改造为 Linux 服务器，使用 Cloudflare Tunnel 实现无公网 IP 条件下的安全内网穿透；通过 Nginx 统一反向代理、静态资源缓存、gzip 压缩，并使用 Docker Compose 编排网站、MySQL、Redis 等服务。
+                </p>
+                <div class="tech-list">
+                  <span>Linux</span><span>Cloudflare Tunnel</span><span>Nginx</span><span>Docker Compose</span><span>Shell</span>
+                </div>
+                <button type="button" class="cta-btn cta-btn--hero" data-protected-resume>查看部署经历</button>
+                <a rel="noreferrer" class="cta-btn text-color-main" href="#architecture">查看架构</a>
+              </div>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+              <div class="project-wrapper__image load-hidden">
+                <div data-tilt data-tilt-max="4" class="thumbnail rounded js-tilt smart-preview smart-preview--flow">
+                  <span class="node node--a"></span><span class="node node--b"></span><span class="node node--c"></span>
+                  <span class="path path--one"></span><span class="path path--two"></span>
+                  <div class="preview-copy"><strong>Private Server Deployment</strong><small>Cloudflare Tunnel → Nginx → Docker</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row project-card">
+            <div class="col-lg-5 col-sm-12">
+              <div class="project-wrapper__text load-hidden">
+                <span class="project-tag">JavaWeb · Microservices Practice</span>
+                <h3 class="project-wrapper__text-title">新大陆校企合作课题项目</h3>
+                <p class="mb-4">
+                  基于 JavaWeb、Spring 全家桶、MySQL、Redis 搭建业务系统；使用 Spring Cloud、Nacos、Gateway、RabbitMQ 进行微服务拆分、服务注册、网关治理和异步消息实践，并配合 Docker、K8s 与自动化测试保障交付质量。
+                </p>
+                <div class="tech-list">
+                  <span>Spring Cloud</span><span>MySQL</span><span>Redis</span><span>RabbitMQ</span><span>K8s</span><span>Vue3</span>
+                </div>
+                <button type="button" class="cta-btn cta-btn--hero" data-protected-resume>查看课题经历</button>
+                <a rel="noreferrer" class="cta-btn text-color-main" href="#message">联系了解</a>
+              </div>
+            </div>
+            <div class="col-lg-7 col-sm-12">
+              <div class="project-wrapper__image load-hidden">
+                <div data-tilt data-tilt-max="4" class="thumbnail rounded js-tilt smart-preview smart-preview--knowledge">
+                  <div class="chat-bubble chat-bubble--one">Gateway / Nacos / RabbitMQ</div>
+                  <div class="chat-bubble chat-bubble--two">Docker + K8s + Nginx 实现部署与高可用</div>
+                  <div class="preview-copy"><strong>Enterprise Practice System</strong><small>Microservice · Test · Deploy</small></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Projects Section -->
+
+    <!-- **** Architecture Section **** -->
+    <section id="architecture" class="content-section architecture-section">
+      <div class="container">
+        <p class="eyebrow load-hidden">System Design</p>
+        <h2 class="section-title load-hidden">微服务架构实践</h2>
+        <p class="section-lead load-hidden">
+          按需求文档规划前后端分离与微服务支撑能力，当前页面用于展示系统蓝图，后续可逐步接入真实后端服务。
+        </p>
+
+        <div class="architecture-grid load-hidden">
+          <div class="arch-card arch-card--wide">
+            <strong>Gateway</strong>
+            <span>统一网关：路由转发、跨域、限流、JWT 校验</span>
+          </div>
+          <div class="arch-card"><strong>Nacos</strong><span>服务注册、发现、健康检查</span></div>
+          <div class="arch-card"><strong>Auth Service</strong><span>JWT 登录、刷新、Redis Token</span></div>
+          <div class="arch-card"><strong>Article Service</strong><span>文章、分类、标签、Markdown</span></div>
+          <div class="arch-card"><strong>Project Service</strong><span>项目作品 CRUD 与展示</span></div>
+          <div class="arch-card"><strong>Comment Service</strong><span>留言审核、回复、删除</span></div>
+          <div class="arch-card"><strong>Redis</strong><span>热门文章、Session、阅读量缓存</span></div>
+          <div class="arch-card"><strong>RabbitMQ</strong><span>文章发布后异步更新搜索索引</span></div>
+          <div class="arch-card"><strong>Docker + K8s</strong><span>容器化部署、弹性伸缩、高可用</span></div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Architecture Section -->
+
+    <!-- **** About Section **** -->
+    <section id="about">
+      <div class="container">
+        <p class="eyebrow load-hidden">About Me</p>
+        <h2 class="section-title load-hidden">关于我</h2>
+        <div class="row about-wrapper">
+          <div class="col-lg-5 col-md-12">
+            <div class="about-wrapper__image load-hidden">
+              <div class="profile-avatar" aria-label="杨怡涵个人头像">
+                <span>杨</span>
+                <small>YI HAN</small>
+              </div>
+              <div class="profile-glow-card" aria-hidden="true"><strong>AI + DevOps</strong><span>Linux · Docker · Vue · Data</span></div>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-12">
+            <div class="about-wrapper__info load-hidden">
+              <p class="about-wrapper__info-text lead-text">
+                我是杨怡涵，西安职业技术学院大数据技术专业学生。熟悉 Linux 日常运维、Shell 脚本、Docker 容器、Kubernetes 基础、Nginx / Tomcat 服务配置、MySQL / Redis 应用、Vue 前端开发、接口测试与 AI 辅助开发。
+              </p>
+              <p class="about-wrapper__info-text">
+                我希望把个人网站不仅做成展示入口，也做成全栈能力练习场：从访客端到后台管理，从文章系统到留言互动，从微服务拆分到容器化部署，用真实项目沉淀技术能力。
+              </p>
+              <div class="skill-grid" aria-label="核心技能">
+                <span>Linux / Shell</span><span>Docker / K8s</span><span>Nginx / Tomcat</span><span>MySQL / Redis</span><span>Vue3 / ECharts</span><span>Spring Cloud</span><span>Postman / JMeter</span><span>AI 辅助开发</span>
+              </div>
+              <div class="about-stats" aria-label="教育与特点">
+                <div><strong>2024 - 2027</strong><span>西安职业技术学院 · 大数据技术</span></div>
+                <div><strong>Full-stack</strong><span>前端展示、后端服务、部署运维综合实践</span></div>
+                <div><strong>Quality</strong><span>接口测试、性能测试、缺陷跟踪与持续优化</span></div>
+              </div>
+              <span class="d-flex mt-4"><button type="button" class="cta-btn cta-btn--resume" data-protected-resume>下载 / 查看简历</button></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END About Section -->
+
+    <!-- **** Message Section **** -->
+    <section id="message" class="content-section message-section">
+      <div class="container">
+        <p class="eyebrow load-hidden">Guestbook</p>
+        <h2 class="section-title load-hidden">留言互动</h2>
+        <p class="section-lead load-hidden">
+          访客可提交留言。当前使用 localStorage 做前端演示，正式版本可接入评论服务并由管理员审核回复。
+        </p>
+
+        <div class="message-layout load-hidden">
+          <form class="message-form" id="messageForm">
+            <label>
+              昵称
+              <input type="text" name="name" placeholder="请输入你的昵称" required />
+            </label>
+            <label>
+              留言内容
+              <textarea name="content" rows="4" placeholder="想交流技术、项目或合作，都可以写在这里。" required></textarea>
+            </label>
+            <button type="submit" class="cta-btn cta-btn--hero">提交留言</button>
+          </form>
+          <div class="message-list" id="messageList" aria-live="polite">
+            <div class="message-item">
+              <strong>管理员回复示例</strong>
+              <p>欢迎来到我的个人网站，留言审核通过后会公开显示。</p>
+              <span>Admin · pinned</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Message Section -->
+
+
+    <!-- **** Admin Preview Section **** -->
+    <section id="admin" class="content-section admin-section">
+      <div class="container">
+        <p class="eyebrow load-hidden">Admin Console</p>
+        <h2 class="section-title load-hidden">后台管理原型</h2>
+        <p class="section-lead load-hidden">
+          根据需求规格设计后台能力：JWT 登录、Redis Token、文章 / 项目 / 评论 / 个人资料管理与数据统计。当前为安全的前端原型演示，不连接真实后端。
+        </p>
+
+        <div class="admin-layout load-hidden">
+          <form class="admin-login" id="adminLoginForm">
+            <h3>管理员登录演示</h3>
+            <label>
+              账号
+              <input name="username" type="text" value="admin" aria-label="管理员账号" />
+            </label>
+            <label>
+              密码
+              <input name="password" type="password" value="demo123456" aria-label="管理员密码" />
+            </label>
+            <button type="submit" class="cta-btn cta-btn--hero">模拟登录</button>
+            <p id="adminLoginStatus">未登录 · 正式版本通过 <code>POST /api/admin/login</code> 获取 JWT。</p>
+          </form>
+
+          <div class="admin-panel" aria-label="后台功能">
+            <div class="admin-stat"><strong>128</strong><span>文章阅读量</span></div>
+            <div class="admin-stat"><strong>36</strong><span>总访问量</span></div>
+            <div class="admin-stat"><strong>5</strong><span>待审核留言</span></div>
+            <div class="admin-actions">
+              <button type="button">发布文章</button>
+              <button type="button">管理项目</button>
+              <button type="button">审核留言</button>
+              <button type="button">更新关于我</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Admin Preview Section -->
+
+    <!-- **** Contact Section **** -->
+    <section id="contact">
+      <div class="container">
+        <p class="eyebrow load-hidden">Contact</p>
+        <h2 class="section-title load-hidden">联系我</h2>
+        <div class="contact-wrapper load-hidden">
+          <p class="contact-wrapper__text">
+            如果你正在寻找具备 AI 辅助开发意识、项目部署经验和持续学习能力的技术新人，欢迎通过留言联系我。完整邮箱、电话与 PDF 简历仅注册用户可见。
+          </p>
+          <div class="contact-actions">
+            <button type="button" class="cta-btn cta-btn--resume" data-protected-resume>登录查看完整联系方式</button>
+            <a rel="noreferrer" class="cta-btn cta-btn--ghost" href="#message">先留言联系</a>
+          </div>
+          <div class="contact-grid" aria-label="方向标签">
+            <span>Linux 运维</span><span>容器化部署</span><span>前端可视化</span><span>接口测试</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END Contact Section -->
+
+    <!-- **** Footer Section **** -->
+    <footer class="footer navbar-static-bottom">
+      <div class="container">
+        <a rel="noreferrer" href="#top" class="back-to-top" aria-label="回到顶部">↑</a>
+        <div class="social-links">
+          <button type="button" data-protected-resume>Email / Phone / Resume</button>
+          <a rel="noreferrer" href="#message">Guestbook</a>
+        </div>
+        <hr />
+        <p class="footer__text">© 2026 杨怡涵 · Full-stack Personal Website Blueprint</p>
+      </div>
+    </footer>
+
+    <dialog class="article-dialog" id="articleDialog">
+      <button type="button" class="dialog-close" aria-label="关闭">×</button>
+      <p class="eyebrow">Markdown Preview</p>
+      <h3 id="dialogTitle">文章标题</h3>
+      <div class="markdown-preview">
+        <p>这里是文章详情模板。正式版本中，文章内容将通过 <code>/api/articles/{id}</code> 获取，并使用 Markdown 渲染器展示。</p>
+        <pre><code>GET /api/articles?page=1&category=devops
+PUT /api/user/preferences { "theme": "dark" }</code></pre>
+      </div>
+    </dialog>
+
+
+    <dialog class="auth-dialog protected-dialog" id="authDialog">
+      <button type="button" class="dialog-close" data-auth-close aria-label="关闭">×</button>
+      <p class="eyebrow">Protected Resume</p>
+      <h3>注册 / 登录后查看站主简历</h3>
+      <p class="protected-tip">
+        为保护站主隐私，游客不能直接查看完整简历、手机号和邮箱。注册用户登录后即可访问完整简历菜单。
+      </p>
+      <form class="auth-form" id="resumeAuthForm">
+        <label>
+          昵称
+          <input name="name" type="text" placeholder="请输入昵称" autocomplete="name" />
+        </label>
+        <label>
+          邮箱
+          <input name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </label>
+        <label>
+          密码
+          <input name="password" type="password" placeholder="至少 6 位" autocomplete="current-password" required minlength="6" />
+        </label>
+        <div class="auth-actions">
+          <button type="submit" class="cta-btn cta-btn--hero" data-auth-action="register">注册并查看</button>
+          <button type="submit" class="cta-btn cta-btn--ghost" data-auth-action="login">登录查看</button>
+        </div>
+        <p class="auth-status" id="authStatus">提示：当前为前端原型，注册信息仅保存在本机 localStorage。</p>
+      </form>
+    </dialog>
+
+    <dialog class="resume-dialog protected-dialog" id="resumeDialog">
+      <button type="button" class="dialog-close" data-resume-close aria-label="关闭">×</button>
+      <div class="resume-header">
+        <div>
+          <p class="eyebrow">Site Owner Resume</p>
+          <h3>杨怡涵 · 个人完整简历</h3>
+          <p>应届毕业生 · 大数据技术 · AI 辅助开发 / DevOps / 全栈实践方向</p>
+        </div>
+        <button type="button" class="cta-btn cta-btn--ghost" id="resumeLogout">退出登录</button>
+      </div>
+
+      <div class="resume-private-grid">
+        <div><strong>出生年月</strong><span>2006 / 10</span></div>
+        <div><strong>邮箱</strong><a href="mailto:2097533249@qq.com">2097533249@qq.com</a></div>
+        <div><strong>电话</strong><a href="tel:17398090174">17398090174</a></div>
+        <div><strong>所在地</strong><span>陕西省西安市</span></div>
+      </div>
+
+      <div class="resume-block">
+        <h4>专业技能</h4>
+        <ul>
+          <li><strong>Linux 系统管理：</strong>熟悉 Linux 日常运维、Shell 脚本编写、系统监控与故障排查。</li>
+          <li><strong>容器化与云原生：</strong>掌握 Docker 容器构建、镜像管理、容器编排与运行；具备 Kubernetes 基础，了解 Pod、Deployment、Service 等资源对象。</li>
+          <li><strong>Web 服务器：</strong>熟练配置 Nginx 反向代理、负载均衡、SSL 证书，熟悉 Tomcat 应用服务器部署与调优。</li>
+          <li><strong>项目部署：</strong>具备完整项目上线经验，能够独立完成从代码到生产环境的部署流程。</li>
+          <li><strong>数据库与缓存：</strong>熟练使用 MySQL，掌握 SQL 优化、索引设计、备份恢复及主从配置；熟悉 Redis 数据类型、持久化机制与高可用架构。</li>
+          <li><strong>前端与测试：</strong>具备 Vue.js 组件化开发基础，熟悉 ECharts 可视化、Postman 接口调试、JMeter 性能测试、Selenium 自动化测试基础。</li>
+          <li><strong>协作与效率：</strong>熟练使用 Git / GitHub / GitLab 工作流、禅道需求与缺陷管理，善于使用 AI 工具辅助代码编写、Bug 调试、代码审查与重构。</li>
+        </ul>
+      </div>
+
+      <div class="resume-block">
+        <h4>项目经历</h4>
+        <div class="resume-timeline">
+          <article>
+            <span>2026/03 - 2026/04</span>
+            <h5>陕西省职业技能大赛 · 人工智能赛道｜前端负责人</h5>
+            <p>基于 Python + PyTorch + Flask 开发大学生心理健康智能评估平台，覆盖学生 / 咨询师 / 管理三端，包含实时表情识别、PHQ-9 抑郁测评、情绪雷达分析、智能报告生成等子系统。使用 Vue.js + ECharts 实现 7+ 种图表交互，借助 AI 工具优化前端组件逻辑，独立完成 20+ 接口联调，并配合 Docker + Nginx 部署竞赛演示环境。</p>
+          </article>
+          <article>
+            <span>2025/10 - 至今</span>
+            <h5>个人服务器与内网穿透部署｜独立部署运维</h5>
+            <p>将个人电脑改造为 Linux 服务器，完成环境配置、防火墙规则与权限管理。使用 cloudflared 建立 Cloudflare Tunnel 安全隧道，实现无公网 IP 条件下的内网穿透；配置 Nginx 反向代理与静态缓存；使用 Docker Compose 部署个人网站、MySQL、Redis、Nginx 等组件，并结合 Git + Shell 实现半自动化更新。</p>
+          </article>
+          <article>
+            <span>2025/03 - 2027/07</span>
+            <h5>新大陆校企合作现场工程师班课题项目｜技术练习者</h5>
+            <p>基于 JavaWeb、Spring 全家桶、MySQL、Redis 搭建业务系统；使用 Spring Cloud、Nacos、Gateway、RabbitMQ 实践微服务拆分、服务注册、网关治理与异步消息；使用 Docker、K8s、Nginx 实现部署与高可用运行；配合 Postman、JMeter、Selenium、禅道完成测试与缺陷跟踪。</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <h4>教育经历</h4>
+        <p><strong>西安职业技术学院 · 大数据技术</strong>｜2024/09 - 2027/07</p>
+        <p>主修课程：Linux 操作系统、Docker 容器技术、Python 程序设计、Web 前端开发（Vue.js）、MySQL 数据库应用、人工智能基础、软件测试技术、Nginx 服务器配置、项目管理与团队协作等。</p>
+        <p>校园经历：多次参加校园辩论赛与 IT 艺术节，参加挑战杯、职业规划大赛、越野赛及主题汇报活动；曾获院级三等奖学金，参与新大陆校企合作班招新，并担任少儿编程 Scratch 助学活动志愿者。</p>
+      </div>
+
+      <div class="resume-actions">
+        <button type="button" class="cta-btn cta-btn--resume">完整简历已在本页展示</button>
+        <a class="cta-btn cta-btn--ghost" href="mailto:2097533249@qq.com">发送邮件</a>
+      </div>
+    </dialog>
+
+
+    <script defer type="module" src="index.js"></script>
+  </body>
+</html>

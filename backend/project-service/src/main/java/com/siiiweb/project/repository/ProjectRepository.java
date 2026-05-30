@@ -1,0 +1,1 @@
+package com.siiiweb.project.repository;import com.siiiweb.project.entity.ProjectItem;import org.springframework.data.jpa.repository.JpaRepository;public interface ProjectRepository extends JpaRepository<ProjectItem,Long>{}

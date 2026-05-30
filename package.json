@@ -1,0 +1,15 @@
+{
+  "name": "siiiweb-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm install && npm run build",
+    "backend:build": "cd backend && mvn -DskipTests package",
+    "dev:infra": "./scripts/dev-up.sh",
+    "test:e2e": "cd tests/selenium && npm install && npm test",
+    "build:all": "./scripts/build-all.sh",
+    "check": "node scripts/stack-check.js && node scripts/version-check.js && npm run frontend:build",
+    "version:check": "node scripts/version-check.js"
+  }
+}

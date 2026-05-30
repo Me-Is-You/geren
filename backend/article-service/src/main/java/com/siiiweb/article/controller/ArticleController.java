@@ -1,0 +1,7 @@
+package com.siiiweb.article.controller;import com.siiiweb.article.entity.Article;import com.siiiweb.article.repository.ArticleRepository;import org.springframework.amqp.rabbit.core.RabbitTemplate;import org.springframework.data.redis.core.StringRedisTemplate;import org.springframework.web.bind.annotation.*;import java.util.*;
+@RestController public class ArticleController{private final ArticleRepository repo;private final StringRedisTemplate redis;private final RabbitTemplate rabbit;public ArticleController(ArticleRepository r,StringRedisTemplate s,RabbitTemplate q){repo=r;redis=s;rabbit=q;}
+@GetMapping("/api/articles") public Map<String,Object> list(@RequestParam(defaultValue="") String keyword){List<Article> list=keyword.isBlank()?repo.findAll():repo.findByTitleContainingIgnoreCaseOrContentContainingIgnoreCase(keyword,keyword);return Map.of("records",list,"total",list.size());}
+@GetMapping("/api/articles/{id}") public Article detail(@PathVariable Long id){Article a=repo.findById(id).orElseThrow();redis.opsForValue().increment("article:view:"+id);a.views++;repo.save(a);return a;}
+@PostMapping("/api/admin/articles") public Article create(@RequestBody Article a){Article saved=repo.save(a);rabbit.convertAndSend("siiiweb.article.exchange","article.published",saved.id);return saved;}
+@PutMapping("/api/admin/articles/{id}") public Article update(@PathVariable Long id,@RequestBody Article a){a.id=id;return repo.save(a);}
+@DeleteMapping("/api/admin/articles/{id}") public void del(@PathVariable Long id){repo.deleteById(id);} }

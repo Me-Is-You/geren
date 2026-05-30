@@ -1,0 +1,1 @@
+package com.siiiweb.comment;import org.springframework.boot.SpringApplication;import org.springframework.boot.autoconfigure.SpringBootApplication;@SpringBootApplication public class CommentApplication{public static void main(String[]a){SpringApplication.run(CommentApplication.class,a);}}

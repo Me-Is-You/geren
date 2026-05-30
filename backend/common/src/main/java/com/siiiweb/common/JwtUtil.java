@@ -1,0 +1,3 @@
+package com.siiiweb.common;
+import io.jsonwebtoken.*;import io.jsonwebtoken.security.Keys;import java.nio.charset.StandardCharsets;import java.util.*;
+public class JwtUtil{private static final String SECRET="SiiiwebJwtSecretForDemoOnlyChangeInProduction2026";public static String create(String subject){return Jwts.builder().setSubject(subject).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis()+7200_000)).signWith(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8))).compact();}public static String parse(String token){return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8))).build().parseClaimsJws(token).getBody().getSubject();}}

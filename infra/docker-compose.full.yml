@@ -1,0 +1,193 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: siiiweb-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: siiiweb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./mysql-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: siiiweb-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: siiiweb-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: siiiweb
+      RABBITMQ_DEFAULT_PASS: siiiweb123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  nacos:
+    image: nacos/nacos-server:v2.3.2
+    container_name: siiiweb-nacos
+    restart: unless-stopped
+    environment:
+      MODE: standalone
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+
+  gateway-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: gateway-service
+    image: siiiweb/gateway-service:1.0.0
+    container_name: siiiweb-gateway-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      REDIS_HOST: redis
+    ports:
+      - "1011:1011"
+    depends_on:
+      - nacos
+      - redis
+
+  user-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: user-service
+    image: siiiweb/user-service:1.0.0
+    container_name: siiiweb-user-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      REDIS_HOST: redis
+    ports:
+      - "1012:1012"
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+
+  article-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: article-service
+    image: siiiweb/article-service:1.0.0
+    container_name: siiiweb-article-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      REDIS_HOST: redis
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: siiiweb
+      RABBITMQ_PASSWORD: siiiweb123
+    ports:
+      - "1013:1013"
+    depends_on:
+      - mysql
+      - redis
+      - rabbitmq
+      - nacos
+
+  project-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: project-service
+    image: siiiweb/project-service:1.0.0
+    container_name: siiiweb-project-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      REDIS_HOST: redis
+    ports:
+      - "1014:1014"
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+
+  comment-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: comment-service
+    image: siiiweb/comment-service:1.0.0
+    container_name: siiiweb-comment-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      REDIS_HOST: redis
+    ports:
+      - "1015:1015"
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+
+  statistics-service:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      args:
+        SERVICE: statistics-service
+    image: siiiweb/statistics-service:1.0.0
+    container_name: siiiweb-statistics-service
+    restart: unless-stopped
+    environment:
+      NACOS_ADDR: nacos:8848
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      REDIS_HOST: redis
+    ports:
+      - "1016:1016"
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    image: siiiweb/frontend:1.0.0
+    container_name: siiiweb-frontend
+    restart: unless-stopped
+    ports:
+      - "1010:80"
+    depends_on:
+      - gateway-service
+
+volumes:
+  mysql_data:

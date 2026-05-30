@@ -1,0 +1,1 @@
+package com.siiiweb.comment.entity;import javax.persistence.*;import java.time.*;@Entity public class Comment{@Id @GeneratedValue(strategy=GenerationType.IDENTITY) public Long id; public String name; @Column(length=1000) public String content; public String status="PENDING"; public String reply; public LocalDateTime createdAt=LocalDateTime.now();}
