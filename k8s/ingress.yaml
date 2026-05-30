@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: siiiweb-ingress
+  namespace: siiiweb
+spec:
+  rules:
+    - host: siiiweb.local
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend: { service: { name: gateway-service, port: { number: 1011 } } }

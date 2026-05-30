@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: siiiweb-config, namespace: siiiweb }
+data:
+  NACOS_ADDR: nacos:8848
+  MYSQL_HOST: mysql
+  REDIS_HOST: redis

@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: nacos, namespace: siiiweb }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: nacos } }
+  template:
+    metadata: { labels: { app: nacos } }
+    spec:
+      containers:
+        - name: nacos
+          image: nacos/nacos-server:v2.3.2
+          env: [ { name: MODE, value: standalone } ]
+          ports: [ { containerPort: 8848 }, { containerPort: 9848 } ]
+---
+apiVersion: v1
+kind: Service
+metadata: { name: nacos, namespace: siiiweb }
+spec: { selector: { app: nacos }, ports: [ { name: http, port: 8848, targetPort: 8848 }, { name: grpc, port: 9848, targetPort: 9848 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: gateway-service, namespace: siiiweb }
+spec: { replicas: 2, selector: { matchLabels: { app: gateway-service } }, template: { metadata: { labels: { app: gateway-service } }, spec: { containers: [ { name: gateway-service, image: siiiweb/gateway-service:1.0.0, ports: [ { containerPort: 1011 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: gateway-service, namespace: siiiweb }
+spec: { selector: { app: gateway-service }, ports: [ { port: 1011, targetPort: 1011 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: user-service, namespace: siiiweb }
+spec: { replicas: 2, selector: { matchLabels: { app: user-service } }, template: { metadata: { labels: { app: user-service } }, spec: { containers: [ { name: user-service, image: siiiweb/user-service:1.0.0, ports: [ { containerPort: 1012 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: user-service, namespace: siiiweb }
+spec: { selector: { app: user-service }, ports: [ { port: 1012, targetPort: 1012 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: article-service, namespace: siiiweb }
+spec: { replicas: 2, selector: { matchLabels: { app: article-service } }, template: { metadata: { labels: { app: article-service } }, spec: { containers: [ { name: article-service, image: siiiweb/article-service:1.0.0, ports: [ { containerPort: 1013 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: article-service, namespace: siiiweb }
+spec: { selector: { app: article-service }, ports: [ { port: 1013, targetPort: 1013 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: project-service, namespace: siiiweb }
+spec: { replicas: 2, selector: { matchLabels: { app: project-service } }, template: { metadata: { labels: { app: project-service } }, spec: { containers: [ { name: project-service, image: siiiweb/project-service:1.0.0, ports: [ { containerPort: 1014 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: project-service, namespace: siiiweb }
+spec: { selector: { app: project-service }, ports: [ { port: 1014, targetPort: 1014 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: comment-service, namespace: siiiweb }
+spec: { replicas: 2, selector: { matchLabels: { app: comment-service } }, template: { metadata: { labels: { app: comment-service } }, spec: { containers: [ { name: comment-service, image: siiiweb/comment-service:1.0.0, ports: [ { containerPort: 1015 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: comment-service, namespace: siiiweb }
+spec: { selector: { app: comment-service }, ports: [ { port: 1015, targetPort: 1015 } ] }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: statistics-service, namespace: siiiweb }
+spec: { replicas: 1, selector: { matchLabels: { app: statistics-service } }, template: { metadata: { labels: { app: statistics-service } }, spec: { containers: [ { name: statistics-service, image: siiiweb/statistics-service:1.0.0, ports: [ { containerPort: 1016 } ], envFrom: [ { configMapRef: { name: siiiweb-config } } ] } ] } } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: statistics-service, namespace: siiiweb }
+spec: { selector: { app: statistics-service }, ports: [ { port: 1016, targetPort: 1016 } ] }

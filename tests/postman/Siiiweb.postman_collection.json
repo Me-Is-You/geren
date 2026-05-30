@@ -1,0 +1,11 @@
+{
+  "info": { "name": "Siiiweb API", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [ { "key": "baseUrl", "value": "http://localhost:1011/api" }, { "key": "token", "value": "" } ],
+  "item": [
+    { "name": "文章列表", "request": { "method": "GET", "url": "{{baseUrl}}/articles" } },
+    { "name": "项目列表", "request": { "method": "GET", "url": "{{baseUrl}}/projects" } },
+    { "name": "提交留言", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"name\":\"访客\",\"content\":\"你好，想交流项目。\"}" }, "url": "{{baseUrl}}/comments" } },
+    { "name": "管理员登录", "event": [{"listen":"test","script":{"exec":["const json = pm.response.json();", "pm.collectionVariables.set('token', json.token);"]}}], "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "body": { "mode": "raw", "raw": "{\"username\":\"admin\",\"password\":\"demo123456\"}" }, "url": "{{baseUrl}}/admin/login" } },
+    { "name": "发布文章", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"},{"key":"Authorization","value":"Bearer {{token}}"}], "body": { "mode": "raw", "raw": "{\"title\":\"Docker 部署实践\",\"category\":\"DevOps\",\"tags\":\"Docker,Nginx\",\"summary\":\"部署笔记\",\"content\":\"# Docker\"}" }, "url": "{{baseUrl}}/admin/articles" } }
+  ]
+}
